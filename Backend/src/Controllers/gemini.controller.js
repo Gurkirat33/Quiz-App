@@ -13,21 +13,29 @@ const questionStore = {};
 
 async function generateQuestions(req, res, next) {
   try {
-    const { catagoryName } = req.params;
+    const { catagoryName, selectedDiff } = req.params;
+    if (!selectedDiff) throw new ApiError(400, "Please provide difficulty");
     if (!catagoryName) throw new ApiError(400, "Please provide catagory name");
     const prompt =
-      await model.generateContent(`Generate a array of objects [javascript] with 10 multiple-choice questions objects with the following criteria: 
-        Category: ${catagoryName}
-        Each question should have:
-        ID (incremental numbers) [name should be questionId ALWAYS]
-        Question text [name should be question ALWAYS]
-        correctAnswer [use this exact name]
-        Four options (1, 2, 3, 4) , options should be in a array of object , each object should have a label and value
-        Ensure the questions are diverse and cover various aspects related to ${catagoryName}.
-        the questions should be different everytime
-        ALSO DONT SEND ANY EXTRA CONTENT , JUST START WITH A ARRAY OF OBJECTS
-        ALWAYS return only a array of objects , nothing else [IMPORTANT]
-        `);
+      await model.generateContent(`Generate an array of 10 multiple-choice question objects in JavaScript with the following criteria:
+      Category: ${catagoryName}
+      Difficulty: ${selectedDiff}
+      Each question object should have the following structure:
+      {
+        questionId: 1,
+        question: "What is the chemical symbol for water?",
+        correctAnswer: "H2O",
+        options: [
+          { label: "A", value: "H2O" },
+          { label: "B", value: "CO2" },
+          { label: "C", value: "NaCl" },
+          { label: "D", value: "O2" }
+        ]
+      }
+      
+      Generate 10 unique questions based on the given category and difficulty. The questions should be diverse and cover various aspects related to ${catagoryName}. Ensure the output is strictly an array of 10 objects as described, without any additional text or content.
+      `);
+
     const result = await prompt.response;
     const text = result.text();
 

@@ -6,7 +6,7 @@ import {
 
 const router = Router();
 
-router.get("/:catagoryName", generateQuestions);
+router.get("/:catagoryName/:selectedDiff", generateQuestions);
 router.post("/check-answers", checkAnswers);
 
 export default router;

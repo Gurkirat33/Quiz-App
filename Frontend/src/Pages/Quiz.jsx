@@ -7,6 +7,8 @@ import Loading from "../Components/Loading";
 
 const Quiz = () => {
   const catagoryName = useParams().catagory;
+  const selectedDiff = useParams().selectedDiff;
+  console.log(catagoryName, selectedDiff);
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState([]);
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -18,7 +20,10 @@ const Quiz = () => {
     async function getQuestions() {
       try {
         setLoading(true);
-        const res = await axios.get(`/api/v1/gemini/${catagoryName}`, {});
+        const res = await axios.get(
+          `/api/v1/gemini/${catagoryName}/${selectedDiff}`,
+          {}
+        );
         setLoading(false);
         setQuestions(res.data.data);
       } catch (error) {

@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route element={<ProtectedRoutes />}>
           <Route path="/home" element={<Home />} />
-          <Route path="/home/:catagory" element={<Quiz />} />
+          <Route path="/home/:catagory/:selectedDiff" element={<Quiz />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
 
