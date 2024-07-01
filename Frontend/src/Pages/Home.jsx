@@ -45,7 +45,7 @@ const Home = () => {
             {demoCatagory.map((catagoryItem) => (
               <div
                 key={catagoryItem}
-                className={`border-2 border-white ${
+                className={`border-2 border-white cursor-pointer ${
                   catagoryItem === catagory ? "bg-white text-black" : ""
                 } p-2 rounded-md`}
                 onClick={() => setCatagory(catagoryItem)}
@@ -60,8 +60,8 @@ const Home = () => {
               {difficuilty.map((diff) => (
                 <div
                   key={diff}
-                  className={` bg-black text-white p-2 rounded-md ${
-                    selectedDiff === diff ? "bg-white text-black" : ""
+                  className={` bg-black  p-2 rounded-md cursor-pointer ${
+                    selectedDiff === diff ? "bg-white text-black" : "text-white"
                   }`}
                   onClick={() => setSelectedDiff(diff)}
                 >
